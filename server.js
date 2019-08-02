@@ -9,31 +9,29 @@ const {ShoppingList, Recipes} = require('./models');
 const jsonParser = bodyParser.json();
 const app = express();
 
-// log the http layer
-app.use(morgan('common'));
 
-// we're going to add some items to ShoppingList
-// so there's some data to look at
-ShoppingList.create('beans', 2);
+app.use(morgan('common'));                                                                     // log the http layer
+
+
+ShoppingList.create('beans', 2);                                                               // add some items to ShoppingList so there's some data to look at
 ShoppingList.create('tomatoes', 3);
 ShoppingList.create('peppers', 4);
 
-// adding some recipes to `Recipes` so there's something
-// to retrieve.
+
 Recipes.create(
-  'boiled white rice', ['1 cup white rice', '2 cups water', 'pinch of salt']);
+  'boiled white rice', ['1 cup white rice', '2 cups water', 'pinch of salt']);                 // adding some recipes to `Recipes` so there's something to retrieve.
 Recipes.create(
   'milkshake', ['2 tbsp cocoa', '2 cups vanilla ice cream', '1 cup milk']);
 
-// when the root of this router is called with GET, return
-// all current ShoppingList items
-app.get('/shopping-list', (req, res) => {
+
+app.get('/shopping-list', (req, res) => {                                                      // when the root of this router is called with GET, return all current ShoppingList items
   res.json(ShoppingList.get());
 });
 
+//POST//
+
 app.post('/shopping-list', jsonParser, (req, res) => {
-  // ensure `name` and `budget` are in request body
-  const requiredFields = ['name', 'budget'];
+  const requiredFields = ['name', 'budget'];                                                    // ensure `name` and `budget` are in request body
   for (let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
