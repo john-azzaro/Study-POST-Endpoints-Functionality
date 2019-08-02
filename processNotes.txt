@@ -16,5 +16,61 @@ STEP 2: To start testing the POST functionality, run "nodemon server.js"
     o   When you run "nodemon server.js", you will have access to your application on port 8080.
     o   Further, because you are using nodemon, the server will restart every time you make changes to your project.
 
-STEP 3: Create a POST endpoint to create a new recipe
-======================================================
+
+
+STEP 3: In Postman, create a POST endpoint to create a new recipe
+=================================================================
+    o   To do this, first select "POST", then select "headers".
+    o   Add a key of "Content-Type" and a value of "application/json"
+    o   Then, select "body", then "raw", and lastly add a JSON object in the request body... in this case, the 
+        JSON object will be another item to add.
+
+            {
+                "name": "coffee",
+                "budget": 10
+            }
+
+STEP 4: Send the POST request
+=============================
+    o   When you send the post request, you should receieve a 201 status and a JSON object representing the new item!
+    o   Also note the unique identification of that item listed as the property "id".
+
+            {
+                "name": "coffee",
+                "id": fc31e89.........................
+                "budget": 10
+
+            }
+
+HOW DID WE DO THIS?  First, understand the "create" Process
+====================================================================
+    o   When we create a list item, we use the same URL that we did for the GET requests (i.e. /shopping-list).
+    o   However, we need to create a seperate route handler to accomplish this.
+
+In your server.js file...
+==========================
+
+STEP 1: bodyParser parses data sent by clients
+==============================================
+    o   First, for the POST request we needed to use the bodyParser middleware to parse the data sent by the client.
+
+            const bodyParser = require('bodyParser');           <== parses JSON data sent from client
+            const jsonParser = bodyParser.json();               <== jsonParser will be supplied as a second argument to our route handler.
+
+STEP 2: create the POST endpoint
+===================================
+
+            app.post('/shopping-list', jsonParser, (req, res) => {                                        // When the client sends a POST request to the endpoint /shopping-list (also passing json parser as a second argument with request response objects)
+            const requiredFields = ['name', 'budget'];                                                    // first you need to VALIDATE "name" and "budget" and make sure they are in request body by creating a constant with an array with "name" and "budget" in it....
+            for (let i=0; i<requiredFields.length; i++) {                                                 // Now as you loop through the the list for name and budget....
+                const field = requiredFields[i];
+                if (!(field in req.body)) {                                                               // if the field is NOT in the request body (i.e. name and budget are NOT in the request body)...
+                const message = `Missing \`${field}\` in request body`                                    // send an error message
+                console.error(message);
+                return res.status(400).send(message);
+                }
+            }
+
+            const item = ShoppingList.create(req.body.name, req.body.budget);                              // But if the request sent is VALID, then the item will be sent, which would be name and the body via the Shoppinglist.create method.
+            res.status(201).json(item);                                                                    // And the response will be the new item, a 201 status (good), and the json object!
+            });
