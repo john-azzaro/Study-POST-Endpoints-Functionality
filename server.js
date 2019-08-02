@@ -28,8 +28,7 @@ app.get('/shopping-list', (req, res) => {                                       
   res.json(ShoppingList.get());
 });
 
-//POST//
-
+//POST//                                                                                       
 app.post('/shopping-list', jsonParser, (req, res) => {
   const requiredFields = ['name', 'budget'];                                                    // ensure `name` and `budget` are in request body
   for (let i=0; i<requiredFields.length; i++) {
