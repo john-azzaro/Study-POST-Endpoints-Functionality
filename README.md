@@ -13,7 +13,7 @@ In an express application, to handle a POST request, you would call the app obje
 ```JavaScript
 
                     app.post('/route', jsonParser, function(req, res) {                                         
-                        ...validation if given...
+                        // validation if given
                         const item = List.create(req.body.key1, req.body.key2);
                         res.status(201).json(item);
                     });
