@@ -28,7 +28,7 @@ Yes! The POST Endpoints Functionality Study features commentary in the server.js
 <br>
 
 ## What are the key features of POST Endpoints Functionality Study?
-Since this study is ongoing, basic functionalities are covered first and more advanced features are added or will be added in the future.  I divided this particular study into different branches covering different aspects of basic node servers, which i list below:
+Since this study is ongoing, basic functionalities are covered first and more advanced features are added or will be added in the future:
 
 
 | **Features:**                            | **Feature Notes:**                             |
