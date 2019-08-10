@@ -7,7 +7,7 @@ The "POST Endpoints Functionality Study" demonstrates the basic functionalities 
 
 <br>
 
-In an express application, to handle a POST request, you would call the app object (note the use of cond app = require('express') ) with the POST method.  However, POST requests are a little more complicated than the GET request.  For example, the POST endpoint in this example needs to parse data about the new item being created (note the second argument in the example below which is middleware we need to install prior to this), call Shoppinglist.create from our model.js file, and return the JSO.  
+In an express application, to handle a POST request, you would call the app object (note the use of ```cond app = require('express')``` which instantiates the app so we can use express) with the POST method.  However, POST requests are a little more complicated than the GET request.  For example, the POST endpoint in this example needs to parse data about the new item being created (note the second argument in the example below which is middleware we need to install prior to this), call Shoppinglist.create from our model.js file, and return the JSO.  
 
 
 ```JavaScript
